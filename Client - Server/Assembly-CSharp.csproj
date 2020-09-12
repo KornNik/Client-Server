@@ -66,10 +66,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\MouseButton.cs" />
+    <Compile Include="Assets\Scripts\NetUnitSetup.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\UnitAnimation.cs" />
+    <Compile Include="Assets\Scripts\UnitLoader.cs" />
     <Compile Include="Assets\Scripts\UnitMotor.cs" />
-    <None Include="Assets\Wispy Sky\ReadMe.txt" />
+    <None Include="Assets\Additional Assets\Wispy Sky\ReadMe.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Etc/Architecture/Клиент - Серверная разработка/Client - Server/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
