@@ -1,46 +1,53 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
-[RequireComponent(typeof(UnitMotor))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
+    [SerializeField] LayerMask movementMask;
 
+    private Camera _camera;
+    private Character _character;
     private int _leftMouseBtn = (int)MouseButton.LeftButton;
     private int _rightMouseBtn = (int)MouseButton.RightButton;
 
-    [SerializeField] LayerMask movementMask;
 
-    Camera cam;
-    UnitMotor motor;
-
-    void Start()
+    private void Awake()
     {
-        cam = Camera.main;
-        motor = GetComponent<UnitMotor>();
-        cam.GetComponent<CameraController>().target = transform;
+        _camera = Camera.main;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(_leftMouseBtn))
+        if (isLocalPlayer)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 100f, movementMask))
+            if (_character != null)
             {
-                motor.MoveToPoint(hit.point);
+                if (Input.GetMouseButtonDown(_leftMouseBtn))
+                {
+                    Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+
+                    if(Physics.Raycast(ray, out hit, 100f, movementMask))
+                        CmdSetMovePoint(hit.point);
+                }
             }
         }
+    }
 
-        if (Input.GetMouseButtonDown(_rightMouseBtn))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+    public void SetCharacter(Character character, bool isLocalPlayer)
+    {
+        _character = character;
+        if (isLocalPlayer) { _camera.GetComponent<CameraController>().target = character.transform; }
+    }
 
-            if (Physics.Raycast(ray, out hit, 100f))
-            {
+    [Command]
+    public void CmdSetMovePoint(Vector3 point)
+    {
+        _character.SetMovePoint(point);
+    }
 
-            }
-        }
+    private void OnDestroy()
+    {
+        if (_character != null) { Destroy(_character.gameObject); }
     }
 }

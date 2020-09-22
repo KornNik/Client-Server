@@ -3,51 +3,51 @@
 public sealed class CameraController : MonoBehaviour
 {
 
-    [SerializeField] Transform m_target;
-    [SerializeField] Vector3 offset;
-    [SerializeField] float zoomSpeed = 4f;
-    [SerializeField] float minZoom = 5f;
-    [SerializeField] float maxZoom = 15f;
-    [SerializeField] float pitch = 2f;
+    [SerializeField] private Transform _target;
+    [SerializeField] private Vector3 _offset;
+    [SerializeField] private float _zoomSpeed = 4f;
+    [SerializeField] private float _minZoom = 5f;
+    [SerializeField] private float _maxZoom = 15f;
+    [SerializeField] private float _pitch = 2f;
 
-    Transform m_transform;
-    float currentZoom = 10f;
-    float currentRot = 0f;
-    float prevMouseX;
+    private Transform _transform;
+    private float _currentZoom = 10f;
+    private float _currentRot = 0f;
+    private float _prevMouseX;
 
     private static readonly string MouseScrollWeel = "Mouse ScrollWheel";
     private int _middleMouseBtn = (int)MouseButton.MiddleButton;
 
-    public Transform target { set { m_target = value; } }
+    public Transform target { set { _target = value; } }
 
     void Start()
     {
-        m_transform = transform;
+        _transform = transform;
     }
 
 
     void Update()
     {
-        if (m_target != null)
+        if (_target != null)
         {
-            currentZoom -= Input.GetAxis(MouseScrollWeel) * zoomSpeed;
-            currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+            _currentZoom -= Input.GetAxis(MouseScrollWeel) * _zoomSpeed;
+            _currentZoom = Mathf.Clamp(_currentZoom, _minZoom, _maxZoom);
 
             if (Input.GetMouseButton(_middleMouseBtn))
             {
-                currentRot += Input.mousePosition.x - prevMouseX;
+                _currentRot += Input.mousePosition.x - _prevMouseX;
             }
         }
-        prevMouseX = Input.mousePosition.x;
+        _prevMouseX = Input.mousePosition.x;
     }
 
     void LateUpdate()
     {
-        if (m_target != null)
+        if (_target != null)
         {
-            m_transform.position = m_target.position - offset * currentZoom;
-            m_transform.LookAt(m_target.position + Vector3.up * pitch);
-            m_transform.RotateAround(m_target.position, Vector3.up, currentRot);
+            _transform.position = _target.position - _offset * _currentZoom;
+            _transform.LookAt(_target.position + Vector3.up * _pitch);
+            _transform.RotateAround(_target.position, Vector3.up, _currentRot);
         }
     }
 }

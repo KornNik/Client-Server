@@ -3,20 +3,17 @@ using UnityEngine.Networking;
 
 public class NetUnitSetup : NetworkBehaviour
 {
-    [SerializeField] MonoBehaviour[] _disableBihaviours;
+    [SerializeField] private MonoBehaviour[] _disableBihaviours;
 
     private void Awake()
     {
-        if (!hasAuthority)
+        for (int i = 0; i < _disableBihaviours.Length; i++)
         {
-            for (int i = 0; i < _disableBihaviours.Length; i++)
-            {
-                _disableBihaviours[i].enabled = false;
-            }
+            _disableBihaviours[i].enabled = false;
         }
     }
 
-    public override void OnStartAuthority()
+    public override void OnStartServer()
     {
         for (int i = 0; i < _disableBihaviours.Length; i++)
         {
