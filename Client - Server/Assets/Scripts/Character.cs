@@ -27,6 +27,20 @@ public class Character : Unit
         else { _reviveTime = _reviveDelay; Revive(); }
     }
 
+    protected override void OnAliveUpdate()
+    {
+        base.OnAliveUpdate();
+        if (_focus != null)
+        {
+            if (!_focus.HasInteracte) { RemoveFocus(); }
+            else
+            {
+                float distance = Vector3.Distance(_focus.InterectionTransform.position, transform.position);
+                if (distance <= _focus.Radius) { _focus.Interacte(gameObject); }
+            }
+        }
+    }
+
     protected override void Die()
     {
         base.Die();
@@ -43,7 +57,15 @@ public class Character : Unit
 
     public void SetMovePoint(Vector3 point)
     {
-        if (!_isDead) { _motor.MoveToPoint(point); }
+        if (!_isDead) { RemoveFocus(); _motor.MoveToPoint(point); }
+    }
+
+    public void SetNewFocus(Interactable newFocus)
+    {
+        if (!_isDead)
+        {
+            if (newFocus.HasInteracte) { SetFocus(newFocus); }
+        }
     }
 
 }

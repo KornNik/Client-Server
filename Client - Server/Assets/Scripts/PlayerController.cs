@@ -16,7 +16,7 @@ public class PlayerController : NetworkBehaviour
         _camera = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
         if (isLocalPlayer)
         {
@@ -27,8 +27,22 @@ public class PlayerController : NetworkBehaviour
                     Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
 
-                    if(Physics.Raycast(ray, out hit, 100f, movementMask))
-                        CmdSetMovePoint(hit.point);
+                    if (Physics.Raycast(ray, out hit, 100f, movementMask))
+                    { CmdSetMovePoint(hit.point); }
+                }
+                if (Input.GetMouseButtonDown(_rightMouseBtn))
+                {
+                    Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(ray, out hit, 100f, ~(1 << LayerMask.NameToLayer("Player"))))
+                    {
+                        Interactable interactable = hit.collider.GetComponent<Interactable>();
+                        if (interactable != null)
+                        {
+                            CmdSetFocus(interactable.GetComponent<NetworkIdentity>());
+                        }
+                    }
                 }
             }
         }
@@ -44,6 +58,12 @@ public class PlayerController : NetworkBehaviour
     public void CmdSetMovePoint(Vector3 point)
     {
         _character.SetMovePoint(point);
+    }
+
+    [Command]
+    public void CmdSetFocus(NetworkIdentity newFocus)
+    {
+        _character.SetNewFocus(newFocus.GetComponent<Interactable>());
     }
 
     private void OnDestroy()

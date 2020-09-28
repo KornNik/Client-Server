@@ -66,8 +66,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\Combat.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyStats.cs" />
+    <Compile Include="Assets\Scripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\MouseButton.cs" />
     <Compile Include="Assets\Scripts\NetUnitSetup.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Assets\Scripts\UnitAnimation.cs" />
     <Compile Include="Assets\Scripts\UnitMotor.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
+    <Compile Include="Assets\Scripts\UnitTriggerAnimation.cs" />
     <None Include="Assets\Additional Assets\Wispy Sky\ReadMe.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Etc/Architecture/Клиент - Серверная разработка/Client - Server/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

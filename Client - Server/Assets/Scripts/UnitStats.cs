@@ -15,6 +15,13 @@ public class UnitStats : NetworkBehaviour
         _currHealth = _maxHealth;
     }
 
+    public virtual void TakeDamage(int damage)
+    {
+        _currHealth -= damage;
+        if (_currHealth <= 0) { _currHealth = 0; }
+
+    }
+
     public void SetHealthRate(float rate)
     {
         _currHealth = rate == 0 ? 0 : (int)(_maxHealth / rate);

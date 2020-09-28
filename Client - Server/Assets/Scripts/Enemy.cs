@@ -39,7 +39,18 @@ public class Enemy : Unit
     protected override void OnAliveUpdate()
     {
         base.OnAliveUpdate();
-        Wandering(Time.deltaTime);
+        if (_focus == null)
+        {
+            Wandering(Time.deltaTime);
+            if (_isAggressive) { FindEnemy(); }
+        }
+        else
+        {
+            float distance = Vector3.Distance(_focus.InterectionTransform.position, transform.position);
+
+            if (distance > _viewDistance || !_focus.HasInteracte) { RemoveFocus(); }
+            else if (distance <= _focus.Radius) { _focus.Interacte(gameObject); }
+        }
     }
 
     protected override void Revive()
@@ -47,6 +58,13 @@ public class Enemy : Unit
         base.Revive();
         transform.position = _startPosition;
         if (isServer) { _motor.MoveToPoint(_startPosition); }
+    }
+
+    protected override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _viewDistance);
     }
 
     private void Wandering(float deltaTime)
@@ -64,6 +82,27 @@ public class Enemy : Unit
         _currentDistanation = Quaternion.AngleAxis(Random.Range(0f, 360f), 
             Vector3.up) * new Vector3(_moveRadius, 0, 0) + _startPosition;
         _motor.MoveToPoint(_currentDistanation);
+    }
+
+    private void FindEnemy()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _viewDistance,
+            1 << LayerMask.NameToLayer("Player"));
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Interactable interactable = colliders[i].GetComponent<Interactable>();
+            if (interactable != null && interactable.HasInteracte) { SetFocus(interactable); break; }
+        }
+    }
+
+    public override bool Interacte(GameObject user)
+    {
+        if (base.Interacte(user))
+        {
+            SetFocus(user.GetComponent<Interactable>());
+            return true;
+        }
+        return false;
     }
 
 }

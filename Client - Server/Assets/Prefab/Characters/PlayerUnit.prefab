@@ -61,6 +61,8 @@ GameObject:
   - component: {fileID: 3925688067956501386}
   - component: {fileID: 7859474580636067795}
   - component: {fileID: 9204115010013924727}
+  - component: {fileID: 114577678675818638}
+  - component: {fileID: 114359353607820594}
   - component: {fileID: 8684329997346445830}
   - component: {fileID: 8684329997346445829}
   - component: {fileID: 1619633505762400845}
@@ -169,9 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72fdd5dcecf2634abde245a711e7dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 100
   Damage:
-    _baseValue: 2
+    _baseValue: 10
 --- !u!114 &7859474580636067795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703e8f6fe60e45b46a337d7775c8f12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InterectionTransform: {fileID: 8684329997346445825}
+  Radius: 2
   _motor: {fileID: 8684329997346445827}
   _unitStats: {fileID: 3925688067956501386}
   _reviveDelay: 5
@@ -203,6 +207,34 @@ MonoBehaviour:
   _disableBihaviours:
   - {fileID: 8684329997346445827}
   - {fileID: 8684329995688248221}
+--- !u!114 &114577678675818638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684329997346445824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6ea29961607374ab6150ba1b232d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackSpeed: 1
+--- !u!114 &114359353607820594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8684329997346445824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f64a20c5ee6184ab986c0f380a3c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 8684329995697682171}
+  _unit: {fileID: 7859474580636067795}
+  _combat: {fileID: 114577678675818638}
 --- !u!114 &8684329997346445830
 MonoBehaviour:
   m_ObjectHideFlags: 0
