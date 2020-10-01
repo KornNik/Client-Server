@@ -70,6 +70,14 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Items\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Items\InventorySlot.cs" />
+    <Compile Include="Assets\Scripts\Items\InventoryUI.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemBase.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemCollection.cs" />
+    <Compile Include="Assets\Scripts\Items\ItemPickup.cs" />
+    <Compile Include="Assets\Scripts\Items\SyncListItem.cs" />
     <Compile Include="Assets\Scripts\MouseButton.cs" />
     <Compile Include="Assets\Scripts\NetUnitSetup.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
@@ -81,6 +89,7 @@
     <Compile Include="Assets\Scripts\UnitMotor.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
     <Compile Include="Assets\Scripts\UnitTriggerAnimation.cs" />
+    <None Include="Assets\Additional Assets\Free medieval weapons\README.txt" />
     <None Include="Assets\Additional Assets\Wispy Sky\ReadMe.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Etc/Architecture/Клиент - Серверная разработка/Client - Server/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>

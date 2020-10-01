@@ -50,14 +50,14 @@ public class Unit : Interactable
         _motor.StopFollowingTarget();
     }
 
-    public override bool Interacte(GameObject user)
+    public override bool Interact(GameObject user)
     {
         Combat combat = user.GetComponent<Combat>();
         if (combat != null)
         {
             if (combat.Attack(_unitStats)) { EventOnDamage(); return true; }
         }
-        return base.Interacte(user);
+        return base.Interact(user);
     }
 
     [ClientCallback]

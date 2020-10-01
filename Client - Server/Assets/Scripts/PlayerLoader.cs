@@ -12,21 +12,31 @@ public class PlayerLoader : NetworkBehaviour
     {
         if (isServer)
         {
-            GameObject unit = Instantiate(_unitPrefab);
-            NetworkServer.Spawn(unit);
-            _unitIdentity = unit.GetComponent<NetworkIdentity>();
-            _controller.SetCharacter(unit.GetComponent<Character>(), true);
+            Character character = CreateCharacter();
+            _controller.SetCharacter(character, true);
+            InventoryUI.instance.SetInventory(character.Inventory);
         }
         else { CmdCreatePlayer(); }
+    }
+
+    public Character CreateCharacter()
+    {
+        GameObject unit = Instantiate(_unitPrefab);
+        NetworkServer.Spawn(unit);
+        _unitIdentity = unit.GetComponent<NetworkIdentity>();
+        unit.GetComponent<Character>().SetInventory(GetComponent<Inventory>());
+        return unit.GetComponent<Character>();
+
+    }
+    public override bool OnCheckObserver(NetworkConnection connection)
+    {
+        return false;
     }
 
     [Command]
     public void CmdCreatePlayer()
     {
-        GameObject unit = Instantiate(_unitPrefab);
-        NetworkServer.Spawn(unit);
-        _unitIdentity = unit.GetComponent<NetworkIdentity>();
-        _controller.SetCharacter(unit.GetComponent<Character>(), false);
+        _controller.SetCharacter(CreateCharacter(), false);
     }
 
     [ClientCallback]
@@ -35,7 +45,10 @@ public class PlayerLoader : NetworkBehaviour
         if(isLocalPlayer)
         {
             _unitIdentity = unit;
-            _controller.SetCharacter(unit.GetComponent<Character>(), true);
+            Character character = unit.GetComponent<Character>();
+            _controller.SetCharacter(character, true);
+            character.SetInventory(GetComponent<Inventory>());
+            InventoryUI.instance.SetInventory(character.Inventory);
         }
     }
 }

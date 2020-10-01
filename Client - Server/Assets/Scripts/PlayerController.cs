@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.EventSystems;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            if (_character != null)
+            if (_character != null&& !EventSystem.current.IsPointerOverGameObject())
             {
                 if (Input.GetMouseButtonDown(_leftMouseBtn))
                 {

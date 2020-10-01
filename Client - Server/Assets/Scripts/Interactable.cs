@@ -8,11 +8,10 @@ public class Interactable : NetworkBehaviour
 
     private bool _hasInteract = true;
 
-
     public bool HasInteracte
     { get { return _hasInteract; } protected set { _hasInteract = value; } }
 
-    public virtual bool Interacte(GameObject user)
+    public virtual bool Interact(GameObject user)
     {
         return false;
     }

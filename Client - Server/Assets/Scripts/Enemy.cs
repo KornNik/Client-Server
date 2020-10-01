@@ -49,7 +49,7 @@ public class Enemy : Unit
             float distance = Vector3.Distance(_focus.InterectionTransform.position, transform.position);
 
             if (distance > _viewDistance || !_focus.HasInteracte) { RemoveFocus(); }
-            else if (distance <= _focus.Radius) { _focus.Interacte(gameObject); }
+            else if (distance <= _focus.Radius) { if (!_focus.Interact(gameObject)) { RemoveFocus(); } }
         }
     }
 
@@ -95,9 +95,9 @@ public class Enemy : Unit
         }
     }
 
-    public override bool Interacte(GameObject user)
+    public override bool Interact(GameObject user)
     {
-        if (base.Interacte(user))
+        if (base.Interact(user))
         {
             SetFocus(user.GetComponent<Interactable>());
             return true;
