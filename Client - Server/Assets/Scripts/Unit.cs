@@ -55,7 +55,8 @@ public class Unit : Interactable
         Combat combat = user.GetComponent<Combat>();
         if (combat != null)
         {
-            if (combat.Attack(_unitStats)) { EventOnDamage(); return true; }
+            if (combat.Attack(_unitStats)) { EventOnDamage(); }
+            return true;
         }
         return base.Interact(user);
     }
@@ -64,7 +65,8 @@ public class Unit : Interactable
     protected virtual void Die()
     {
         _isDead = true;
-        if(isServer)
+        GetComponent<Collider>().enabled = false;
+        if (isServer)
         {
             HasInteracte = false;
             RemoveFocus();
@@ -84,7 +86,8 @@ public class Unit : Interactable
     protected virtual void Revive()
     {
         _isDead = false;
-        if(isServer)
+        GetComponent<Collider>().enabled = true;
+        if (isServer)
         {
             HasInteracte = true;
             _unitStats.SetHealthRate(1);

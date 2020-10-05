@@ -5,6 +5,7 @@ public class PlayerLoader : NetworkBehaviour
 {
     [SerializeField] private GameObject _unitPrefab;
     [SerializeField] private PlayerController _controller;
+    [SerializeField] private Player _player;
 
     [SyncVar(hook = "HookUnitIdentity")] private NetworkIdentity _unitIdentity;
 
@@ -13,8 +14,8 @@ public class PlayerLoader : NetworkBehaviour
         if (isServer)
         {
             Character character = CreateCharacter();
+            _player.Setup(character, GetComponent<Inventory>(), GetComponent<Equipment>(), true);
             _controller.SetCharacter(character, true);
-            InventoryUI.instance.SetInventory(character.Inventory);
         }
         else { CmdCreatePlayer(); }
     }
@@ -24,7 +25,6 @@ public class PlayerLoader : NetworkBehaviour
         GameObject unit = Instantiate(_unitPrefab);
         NetworkServer.Spawn(unit);
         _unitIdentity = unit.GetComponent<NetworkIdentity>();
-        unit.GetComponent<Character>().SetInventory(GetComponent<Inventory>());
         return unit.GetComponent<Character>();
 
     }
@@ -36,6 +36,8 @@ public class PlayerLoader : NetworkBehaviour
     [Command]
     public void CmdCreatePlayer()
     {
+        Character character = CreateCharacter();
+        _player.Setup(character, GetComponent<Inventory>(), GetComponent<Equipment>(), false);
         _controller.SetCharacter(CreateCharacter(), false);
     }
 
@@ -46,9 +48,8 @@ public class PlayerLoader : NetworkBehaviour
         {
             _unitIdentity = unit;
             Character character = unit.GetComponent<Character>();
+            _player.Setup(character, GetComponent<Inventory>(), GetComponent<Equipment>(), true);
             _controller.SetCharacter(character, true);
-            character.SetInventory(GetComponent<Inventory>());
-            InventoryUI.instance.SetInventory(character.Inventory);
         }
     }
 }

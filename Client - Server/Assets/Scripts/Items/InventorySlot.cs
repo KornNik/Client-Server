@@ -28,11 +28,11 @@ public class InventorySlot : MonoBehaviour
 
     public void OnRemoveButton()
     {
-        Inventory.Remove(_item);
+        Inventory.DropItem(_item);
     }
 
     public void UseItem()
     {
-        if (_item != null) _item.Use();
+        if (_item != null) Inventory.UseItem(_item);
     }
 }

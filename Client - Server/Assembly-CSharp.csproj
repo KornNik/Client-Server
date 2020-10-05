@@ -70,6 +70,10 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyStats.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Items\Equipment.cs" />
+    <Compile Include="Assets\Scripts\Items\EquipmentItem.cs" />
+    <Compile Include="Assets\Scripts\Items\EquipmentSlot.cs" />
+    <Compile Include="Assets\Scripts\Items\EquipmentUI.cs" />
     <Compile Include="Assets\Scripts\Items\Inventory.cs" />
     <Compile Include="Assets\Scripts\Items\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Items\InventoryUI.cs" />
@@ -80,12 +84,14 @@
     <Compile Include="Assets\Scripts\Items\SyncListItem.cs" />
     <Compile Include="Assets\Scripts\MouseButton.cs" />
     <Compile Include="Assets\Scripts\NetUnitSetup.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerLoader.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Stat.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\UnitAnimation.cs" />
+    <Compile Include="Assets\Scripts\UnitDrop.cs" />
     <Compile Include="Assets\Scripts\UnitMotor.cs" />
     <Compile Include="Assets\Scripts\UnitStats.cs" />
     <Compile Include="Assets\Scripts\UnitTriggerAnimation.cs" />

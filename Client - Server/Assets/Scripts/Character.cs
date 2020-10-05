@@ -4,12 +4,11 @@
 public class Character : Unit
 {
     [SerializeField] private float _reviveDelay = 5f;
-    [SerializeField] private GameObject _gfx;
 
     private Vector3 _startPosition;
     private float _reviveTime;
 
-    public Inventory Inventory;
+    public Player Player;
 
     private void Start()
     {
@@ -38,7 +37,7 @@ public class Character : Unit
             else
             {
                 float distance = Vector3.Distance(_focus.InterectionTransform.position, transform.position);
-                if (distance <= _focus.Radius) { /*_focus.Interact(gameObject);*/ if (!_focus.Interact(gameObject)) { RemoveFocus(); } }
+                if (distance <= _focus.Radius) { if (!_focus.Interact(gameObject)) { RemoveFocus(); } }
             }
         }
     }
@@ -46,14 +45,12 @@ public class Character : Unit
     protected override void Die()
     {
         base.Die();
-        _gfx.SetActive(false);
     }
 
     protected override void Revive()
     {
         base.Revive();
         transform.position = _startPosition;
-        _gfx.SetActive(true);
         if (isServer) { _motor.MoveToPoint(_startPosition); }
     }
 
@@ -69,10 +66,4 @@ public class Character : Unit
             if (newFocus.HasInteracte) { SetFocus(newFocus); }
         }
     }
-    public void SetInventory(Inventory inventory)
-    {
-        Inventory = inventory;
-        inventory.DropPoint = transform;
-    }
-
 }

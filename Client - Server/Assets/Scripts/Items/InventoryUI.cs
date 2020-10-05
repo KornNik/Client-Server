@@ -8,7 +8,6 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        _inventoryUI.SetActive(false);
         if (instance != null)
         {
             Debug.LogError("More than one instance of InventoryUI found!");
@@ -24,6 +23,11 @@ public class InventoryUI : MonoBehaviour
 
     private InventorySlot[] _slots;
     private Inventory _inventory;
+
+    private void Start()
+    {
+        _inventoryUI.SetActive(false);
+    }
 
     private void Update()
     {
