@@ -7,6 +7,8 @@ public class UnitStats : NetworkBehaviour
     [SyncVar] private int _currHealth;
 
     public Stat Damage;
+    public Stat Armor;
+    public Stat MoveSpeed;
 
     public int currHealth { get { return _currHealth; } }
 
@@ -17,7 +19,8 @@ public class UnitStats : NetworkBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        _currHealth -= damage;
+        damage -= Armor.GetValue();
+        if (damage > 0) { _currHealth -= damage; }
         if (_currHealth <= 0) { _currHealth = 0; }
 
     }

@@ -10,6 +10,8 @@ public class Character : Unit
 
     public Player Player;
 
+    public PlayerStats PlayerStats { get { return _unitStats as PlayerStats; } }
+
     private void Start()
     {
         _startPosition = transform.position;

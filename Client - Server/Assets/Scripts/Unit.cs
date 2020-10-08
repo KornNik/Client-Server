@@ -14,6 +14,14 @@ public class Unit : Interactable
     [SyncEvent] public event UnitDelegate EventOnDie;
     [SyncEvent] public event UnitDelegate EventOnRevive;
 
+    public UnitStats UnitStats { get { return _unitStats; } }
+
+    public override void OnStartServer()
+    {
+        _motor.SetMoveSpeed(_unitStats.MoveSpeed.GetValue());
+        _unitStats.MoveSpeed.OnStatChanged += _motor.SetMoveSpeed;
+    }
+
     private void Update()
     {
         OnUpdate();

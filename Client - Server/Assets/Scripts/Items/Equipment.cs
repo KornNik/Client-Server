@@ -26,11 +26,13 @@ public class Equipment : NetworkBehaviour
             if (((EquipmentItem)Items[i]).EquipSlot == item.EquipSlot)
             {
                 oldItem = (EquipmentItem)Items[i];
+                oldItem.Unequip(Player);
                 Items.RemoveAt(i);
                 break;
             }
         }
         Items.Add(item);
+        item.Equip(Player);
         return oldItem;
     }
 
@@ -44,6 +46,7 @@ public class Equipment : NetworkBehaviour
     {
         if (Items[index] != null && Player.Inventory.AddItem(Items[index]))
         {
+            ((EquipmentItem)Items[index]).Unequip(Player);
             Items.RemoveAt(index);
         }
     }

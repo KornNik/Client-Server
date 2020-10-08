@@ -89,6 +89,9 @@
     <Compile Include="Assets\Scripts\PlayerLoader.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\Stat.cs" />
+    <Compile Include="Assets\Scripts\Stats\StatItem.cs" />
+    <Compile Include="Assets\Scripts\Stats\StatsManager.cs" />
+    <Compile Include="Assets\Scripts\Stats\StatsUI.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\UnitAnimation.cs" />
     <Compile Include="Assets\Scripts\UnitDrop.cs" />
