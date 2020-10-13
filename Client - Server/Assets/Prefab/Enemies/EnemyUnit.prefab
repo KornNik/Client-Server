@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1746721912039246432}
   - component: {fileID: 114368014608748790}
   - component: {fileID: 114707286428565854}
+  - component: {fileID: 114377180003684210}
   - component: {fileID: 4661915369201684095}
   - component: {fileID: 7361311059438344519}
   - component: {fileID: 5296762713023258214}
@@ -84,7 +85,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!114 &5348160966614991514
 MonoBehaviour:
@@ -113,6 +114,10 @@ MonoBehaviour:
   _maxHealth: 50
   Damage:
     _baseValue: 5
+  Armor:
+    _baseValue: 0
+  MoveSpeed:
+    _baseValue: 0
 --- !u!114 &4278155817189057391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +140,7 @@ MonoBehaviour:
   _isAggressive: 1
   _viewDistance: 5
   _reviveDelay: 15
+  _rewardExp: 80
 --- !u!114 &1799501273890893387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +197,23 @@ MonoBehaviour:
   _animator: {fileID: 2627598010341651434}
   _unit: {fileID: 4278155817189057391}
   _combat: {fileID: 114368014608748790}
+--- !u!114 &114377180003684210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916156316053211860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fee1dc331bc41f41b33df4ea3c24103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropItems:
+  - Item: {fileID: 11400000, guid: 9160b222aca1b3542ba127266370bd1b, type: 2}
+    Rate: 100
+  - Item: {fileID: 11400000, guid: e1526fbec8f89524e9c18ff434277147, type: 2}
+    Rate: 30.2
 --- !u!114 &4661915369201684095
 MonoBehaviour:
   m_ObjectHideFlags: 0

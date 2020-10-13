@@ -57,13 +57,17 @@ public class Unit : Interactable
         _focus = null;
         _motor.StopFollowingTarget();
     }
+    protected virtual void DamageWithCombat(GameObject user)
+    {
+        EventOnDamage();
+    }
 
     public override bool Interact(GameObject user)
     {
         Combat combat = user.GetComponent<Combat>();
         if (combat != null)
         {
-            if (combat.Attack(_unitStats)) { EventOnDamage(); }
+            if (combat.Attack(_unitStats)) { DamageWithCombat(user); }
             return true;
         }
         return base.Interact(user);

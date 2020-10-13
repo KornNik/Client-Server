@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(UnitMotor), typeof(EnemyStats))]
 public class Enemy : Unit
@@ -17,6 +18,10 @@ public class Enemy : Unit
     [SerializeField] private float _reviveDelay;
     private float _reviveTime;
 
+    [SerializeField] private float _rewardExp;
+
+    private List<Character> _enemies = new List<Character>();
+
     private void Start()
     {
         _startPosition = transform.position;
@@ -27,6 +32,13 @@ public class Enemy : Unit
     private void Update()
     {
         OnUpdate();
+    }
+    protected override void DamageWithCombat(GameObject user)
+    {
+        base.DamageWithCombat(user);
+        Character character = user.GetComponent<Character>();
+        if (character != null && !_enemies.Contains(character))
+            _enemies.Add(character);
     }
 
     protected override void OnDeadUpdate()
@@ -60,6 +72,19 @@ public class Enemy : Unit
         base.Revive();
         transform.position = _startPosition;
         if (isServer) { _motor.MoveToPoint(_startPosition); }
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        if (isServer)
+        {
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                _enemies[i].Player.Progress.AddExp(_rewardExp / _enemies.Count);
+            }
+            _enemies.Clear();
+        }
     }
 
     protected override void OnDrawGizmosSelected()

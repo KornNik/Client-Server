@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-[RequireComponent(typeof(StatsManager), typeof(NetworkIdentity))]
+[RequireComponent(typeof(StatsManager), typeof(NetworkIdentity), typeof(PlayerProgress))]
 public class Player : MonoBehaviour
 {
 
@@ -9,13 +9,16 @@ public class Player : MonoBehaviour
     [SerializeField] private Inventory _inventory;
     [SerializeField] private Equipment _equipment;
     [SerializeField] private StatsManager _statsManager;
+    [SerializeField] private PlayerProgress _progress;
 
     public Character Character { get { return _character; } }
     public Inventory Inventory { get { return _inventory; } }
     public Equipment Equipment { get { return _equipment; } }
+    public PlayerProgress Progress { get { return _progress; } }
 
     public void Setup(Character character, Inventory inventory, Equipment equipment, bool isLocalPlayer)
     {
+        _progress = GetComponent<PlayerProgress>();
         _statsManager = GetComponent<StatsManager>();
         _character = character;
         _inventory = inventory;
@@ -23,10 +26,12 @@ public class Player : MonoBehaviour
         _character.Player = this;
         _inventory.Player = this;
         _equipment.Player = this;
+        _statsManager.Player = this;
 
         if (GetComponent<NetworkIdentity>().isServer)
         {
             _character.PlayerStats.StatsManager = _statsManager;
+            _progress.Manager = _statsManager;
         }
 
         if (isLocalPlayer)

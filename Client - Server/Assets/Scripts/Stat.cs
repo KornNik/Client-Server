@@ -11,6 +11,16 @@ public class Stat
 
     private List<int> _modifiers = new List<int>();
 
+    public int baseValue
+    {
+        get { return _baseValue; }
+        set
+        {
+            _baseValue = value;
+            if (OnStatChanged != null) OnStatChanged(GetValue());
+        }
+    }
+
     public int GetValue()
     {
         int finalValue = _baseValue;
